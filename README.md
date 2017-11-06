@@ -3,6 +3,8 @@ Item Response Theory
 
 This software fits the 1-PL or 2-PL Item Response Theory model to observed responses.  It consists of an executable and a config file (which needs to be in the same folder as the executable).  The executable is named IRT.exe.  Run it with no arguments to get instructions.
 
+This software was used to generate the variational results in the paper ["Bayesian Prior Choice in IRT Estimation Using MCMC and Variational Bayes"](https://doi.org/10.3389/fpsyg.2016.01422).
+
 Installation
 ============
 
