@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.ML.Probabilistic.Distributions;
+using Microsoft.ML.Probabilistic.Factors;
+using Microsoft.ML.Probabilistic.Math;
+using Microsoft.ML.Probabilistic.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MicrosoftResearch.Infer.Distributions;
-using MicrosoftResearch.Infer.Maths;
-using MicrosoftResearch.Infer.Factors;
-using MicrosoftResearch.Infer.Utils;
 
 namespace IRT
 {
@@ -85,7 +85,6 @@ namespace IRT
             responseProbMean = new Matrix(numStudents, numQuestions);
             int niters = options.numberOfSamples;
             int burnin = options.burnIn;
-            bool useGumbel = true;
             double logisticVariance = Math.PI * Math.PI / 3;
             double shape = 4.5;
             Gamma precPrior = Gamma.FromShapeAndRate(shape, (shape - 1) * logisticVariance);

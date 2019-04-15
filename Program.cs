@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MicrosoftResearch.Infer;
-using MicrosoftResearch.Infer.Utils;
-using MicrosoftResearch.Infer.Distributions;
-using MicrosoftResearch.Infer.Models;
-using MicrosoftResearch.Infer.Factors;
-using MicrosoftResearch.Infer.Maths;
 using System.IO;
-using MicrosoftResearch.Infer.Collections;
 using System.Diagnostics;
 using System.Reflection;
 using System.Configuration;
+using Microsoft.ML.Probabilistic.Distributions;
+using Microsoft.ML.Probabilistic.Math;
+using Microsoft.ML.Probabilistic.Serialization;
+using Microsoft.ML.Probabilistic.Utilities;
+using Microsoft.ML.Probabilistic.Factors;
+using Microsoft.ML.Probabilistic.Algorithms;
 
 namespace IRT
 {
@@ -195,7 +194,8 @@ namespace IRT
                 WriteMatrix(abilityCred, outputFolder + @"\ability_ci.txt");
                 WriteMatrix(difficultyCred, outputFolder + @"\difficulty_ci.txt");
             }
-            if (false)
+            bool showEstimates = false;
+            if (showEstimates)
             {
                 Console.WriteLine("abilityMean = {0}", train.engine.Infer(train.abilityMean));
                 Console.WriteLine("abilityPrecision = {0}", train.engine.Infer(train.abilityPrecision));
@@ -245,12 +245,13 @@ namespace IRT
             //train.engine.NumberOfIterations = 100;
             //train.engine.ShowTimings = true;
             string logistic_type = "";
-            if (false)
+            //logistic_type = "JJ";
+            if (logistic_type == "JJ")
             {
-                logistic_type = "JJ";
                 train.engine.Compiler.GivePriorityTo(typeof(LogisticOp_JJ96));
             }
-            if (false)
+            bool specialInitialization = false;
+            if (specialInitialization)
             {
                 // change initialization
                 train.abilityMean.InitialiseTo(new Gaussian(5, 10));
@@ -354,7 +355,8 @@ namespace IRT
                         watch.Stop();
                         if (showTiming) Console.WriteLine("MCMC elapsed time = {0}ms", watch.ElapsedMilliseconds);
                     }
-                    if (false)
+                    bool showEstimates = false;
+                    if (showEstimates)
                     {
                         Console.WriteLine("abilityMean = {0}", train.engine.Infer(train.abilityMean));
                         Console.WriteLine("abilityPrecision = {0}", train.engine.Infer(train.abilityPrecision));
@@ -363,7 +365,7 @@ namespace IRT
                         Console.WriteLine("difficultyMean = {0}", train.engine.Infer(train.difficultyMean));
                         Console.WriteLine("difficultyPrecision = {0}", train.engine.Infer(train.difficultyPrecision));
                     }
-                    if (false)
+                    if (showEstimates)
                     {
                         for (int i = 0; i < 10; i++)
                         {

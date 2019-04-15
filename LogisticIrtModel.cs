@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MicrosoftResearch.Infer;
-using MicrosoftResearch.Infer.Utils;
-using MicrosoftResearch.Infer.Distributions;
-using MicrosoftResearch.Infer.Models;
-using MicrosoftResearch.Infer.Factors;
-using MicrosoftResearch.Infer.Maths;
 using System.IO;
-using MicrosoftResearch.Infer.Collections;
+using Microsoft.ML.Probabilistic.Models;
+using Microsoft.ML.Probabilistic.Distributions;
+using Microsoft.ML.Probabilistic.Math;
+using Microsoft.ML.Probabilistic.Models.Attributes;
 
 namespace IRT
 {
@@ -37,12 +34,15 @@ namespace IRT
 			abilityMean = Variable.GaussianFromMeanAndVariance(0, 1e6).Named("abilityMean");
 			abilityPrecision = Variable.GammaFromShapeAndRate(1, 1).Named("abilityPrecision");
 			ability = Variable.Array<double>(student).Named("ability");
-			if (true) {
+            bool useTruncatedGaussianPrior = false;
+            bool useMixturePrior = false;
+			if (!useTruncatedGaussianPrior && !useMixturePrior) {
 				ability[student] = Variable.GaussianFromMeanAndPrecision(abilityMean, abilityPrecision).ForEach(student);
-			} else if (true) {
+			} else if (useTruncatedGaussianPrior) {
 				// truncated Gaussian prior for ability
 				double threshold, m, v;
-				if (false) {
+                bool mildSkew = false;
+				if (mildSkew) {
 					// matched to Mild_skew generator
 					threshold = -1.6464;
 					m = -0.4;

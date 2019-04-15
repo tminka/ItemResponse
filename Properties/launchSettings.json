@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ItemResponse": {
+      "commandName": "Project",
+      "commandLineArgs": "MCMC Standard c:\\Users\\minka\\Documents\\IRT\\test.txt c:\\users\\minka\\Documents\\IRT\\"
+    }
+  }
+}
